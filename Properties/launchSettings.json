@@ -15,7 +15,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5265",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\001\\Downloads\\metaverse-491714-0088d7861d87.json"
       }
     },
     "https": {
@@ -24,14 +25,16 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7285;http://localhost:5265",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\001\\Downloads\\metaverse-491714-0088d7861d87.json"
       }
     },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\001\\Downloads\\metaverse-491714-0088d7861d87.json"
       }
     }
   }

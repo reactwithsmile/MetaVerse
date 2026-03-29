@@ -9,6 +9,92 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/metasphere.css" asp-append-version="true" />
+
+    <style>
+        #msChatbotWrapper {
+            position: fixed;
+            right: 20px;
+            bottom: 24px;
+            z-index: 1050;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .ms-chatbot-label {
+            background: rgba(6,11,30,0.85);
+            color: #cfe8ff;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            box-shadow: 0 6px 18px rgba(11,7,23,0.45);
+            border: 1px solid rgba(255,255,255,0.04);
+            white-space: nowrap;
+        }
+        .ms-chatbot-button {
+            /* removed fixed positioning so it's placed by wrapper */
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#8b5cf6,#06b6d4);
+            color: #fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            box-shadow: 0 8px 24px rgba(11,7,23,0.5);
+            border: none;
+            cursor: pointer;
+        }
+        .ms-chatbot-panel {
+            position: fixed;
+            right: 20px;
+            bottom: 92px;
+            z-index: 1050;
+            width: 320px;
+            max-width: calc(100% - 48px);
+            background: linear-gradient(180deg, rgba(12,11,20,0.96), rgba(18,17,28,0.96));
+            color: #e6e6f0;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(11,7,23,0.6);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            font-family: Rajdhani, sans-serif;
+        }
+        .ms-chatbot-header {
+            padding: 12px 14px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .ms-chatbot-messages {
+            padding: 12px;
+            max-height: 260px;
+            overflow-y: auto;
+        }
+        .ms-chatbot-option {
+            background: rgba(255,255,255,0.03);
+            margin: 8px 0;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .12s;
+            color: #cfd6ff;
+        }
+        .ms-chatbot-option:hover { background: rgba(255,255,255,0.06); }
+        .ms-chatbot-user { text-align:right; color:#bfe3ff; font-size:13px; margin:6px 0; }
+        .ms-chatbot-bot { text-align:left; color:#d6d6ff; font-size:13px; margin:6px 0; }
+        .ms-chatbot-footer {
+            padding: 10px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            display:flex;
+            gap:8px;
+            align-items:center;
+        }
+        .ms-chatbot-typing { font-size: 13px; color: #9aa4ff; }
+        .ms-chatbot-close { background: transparent; border: none; color: #e6e6f0; cursor: pointer; }
+    </style>
 </head>
 <body>
     <!-- Animated background particles -->
@@ -92,8 +178,32 @@
         </div>
     }
 
+    <div id="msChatbotWrapper">
+        <div class="ms-chatbot-label" id="msChatbotLabel">Chat with assistant</div>
+        <button id="msChatbotButton" class="ms-chatbot-button" aria-label="Open chat">
+            <i class="fas fa-comment-alt"></i>
+        </button>
+    </div>
+
+    <div id="msChatbotPanel" class="ms-chatbot-panel" role="dialog" aria-label="Chatbot">
+        <div class="ms-chatbot-header">
+            <div>
+                <strong>Assistant</strong>
+                <div style="font-size:12px;color:#9aa4ff">Choose a prompt</div>
+            </div>
+            <div>
+                <button id="msChatbotClose" class="ms-chatbot-close" title="Close"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="ms-chatbot-messages" id="msChatbotMessages">
+        </div>
+        <div class="ms-chatbot-footer" id="msChatbotFooter">
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/metasphere.js" asp-append-version="true"></script>
+    <script src="~/js/chatbot.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
