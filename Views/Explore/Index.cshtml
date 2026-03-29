@@ -1,0 +1,71 @@
+@model MetaSphere.ViewModels.ExploreViewModel
+@{ ViewData["Title"] = "Explore"; }
+
+<section class="section-pad">
+    <div class="container">
+        <!-- Header -->
+        <div class="section-header reveal">
+            <h1 class="section-title text-gradient">Explore Assets</h1>
+            <div class="section-line"></div>
+            <p class="section-subtitle">Discover the full MetaSphere digital universe</p>
+        </div>
+
+        <!-- Search + Filter -->
+        <div class="row g-3 mb-4 reveal">
+            <div class="col-md-6">
+                <form method="get" asp-action="Index">
+                    <div class="search-wrap">
+                        <i class="fas fa-search" style="color:var(--text-muted)"></i>
+                        <input type="text" name="search" value="@Model.Search" placeholder="Search assets..." />
+                        <input type="hidden" name="tag" value="@Model.Tag" />
+                        <button type="submit" class="btn btn-neon" style="padding:.4rem 1rem;font-size:.65rem">
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 d-flex align-items-center gap-2 flex-wrap">
+                <a asp-action="Index" asp-route-search="@Model.Search"
+                   class="filter-tag @(string.IsNullOrEmpty(Model.Tag) ? "active" : "")">All</a>
+                @foreach (var tag in Model.Tags)
+                {
+                    <a asp-action="Index" asp-route-search="@Model.Search" asp-route-tag="@tag"
+                       class="filter-tag @(Model.Tag == tag ? "active" : "")">@tag</a>
+                }
+            </div>
+        </div>
+
+        <!-- Grid -->
+        @if (!Model.Items.Any())
+        {
+            <div class="text-center py-5 reveal">
+                <div style="font-size:4rem;opacity:.3">⬡</div>
+                <p class="text-muted mt-3">No assets found. Try a different search.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="col-sm-6 col-lg-4 reveal">
+                        <div class="nft-card h-100">
+                            <div class="nft-image-wrap">
+                                <div class="nft-placeholder">⬡</div>
+                                <span class="nft-tag">@item.Tag</span>
+                                <span class="rarity-badge rarity-@item.Rarity">@item.Rarity</span>
+                            </div>
+                            <div class="nft-body">
+                                <div class="nft-title">@item.Title</div>
+                                <p class="nft-desc">@item.Description</p>
+                                <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-neon w-100">
+                                    <span>Enquire Now</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

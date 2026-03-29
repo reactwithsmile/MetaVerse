@@ -1,0 +1,70 @@
+@model MetaSphere.ViewModels.ItemDetailViewModel
+@{ ViewData["Title"] = Model.Item.Title; }
+
+<section class="section-pad">
+    <div class="container">
+        <a asp-action="Index" class="btn btn-neon btn-neon-blue mb-4" style="font-size:.65rem">
+            <span>← Back to Explore</span>
+        </a>
+        <div class="row g-5">
+            <!-- Image -->
+            <div class="col-lg-5 reveal-left">
+                <div class="detail-image-wrap">
+                    <div class="detail-placeholder">⬡</div>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <span class="nft-tag position-static">@Model.Item.Tag</span>
+                    <span class="rarity-badge rarity-@Model.Item.Rarity position-static">@Model.Item.Rarity</span>
+                </div>
+            </div>
+
+            <!-- Info + Form -->
+            <div class="col-lg-7 reveal-right">
+                <h1 class="text-gradient mb-3" style="font-family:'Orbitron',monospace;font-size:2rem">@Model.Item.Title</h1>
+                <p class="text-muted mb-4" style="font-size:1.05rem;line-height:1.8">@Model.Item.Description</p>
+
+                <div class="divider-neon"></div>
+
+                <h4 class="text-neon mb-4" style="font-family:'Orbitron',monospace;font-size:1rem;letter-spacing:2px">
+                    SUBMIT INQUIRY
+                </h4>
+
+                <form asp-action="Enquire" asp-controller="Explore" method="post" class="ms-form">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Lead.ItemId" />
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Lead.Name">NAME</label>
+                            <input asp-for="Lead.Name" class="form-control" placeholder="Your name" />
+                            <span asp-validation-for="Lead.Name" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Lead.Email">EMAIL</label>
+                            <input asp-for="Lead.Email" class="form-control" placeholder="your@email.com" />
+                            <span asp-validation-for="Lead.Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Lead.Phone">PHONE (OPTIONAL)</label>
+                            <input asp-for="Lead.Phone" class="form-control" placeholder="+1 234 567 8900" />
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Lead.Message">MESSAGE</label>
+                            <textarea asp-for="Lead.Message" class="form-control" rows="4" placeholder="Tell us about your interest..."></textarea>
+                            <span asp-validation-for="Lead.Message" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-neon w-100">
+                                <span>⬡ Submit Inquiry</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

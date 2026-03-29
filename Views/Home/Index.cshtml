@@ -1,0 +1,127 @@
+@model IEnumerable<MetaSphere.Models.Item>
+@{ ViewData["Title"] = "Home"; }
+
+<!-- HERO -->
+<section class="hero-section">
+    <div class="container position-relative">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6 reveal-left">
+                <div class="hero-badge">⬡ NEXT-GEN METAVERSE PLATFORM</div>
+                <h1 class="hero-title">
+                    Enter the<br>
+                    <span class="text-gradient">Metaverse</span><br>
+                    Experience
+                </h1>
+                <p class="hero-subtitle">
+                    Discover rare digital assets, virtual lands, and exclusive NFT collections.
+                    Secure your place in the future of digital ownership.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a asp-controller="Explore" asp-action="Index" class="btn btn-neon">
+                        <span>⬡ Explore Now</span>
+                    </a>
+                    <a asp-controller="Contact" asp-action="Index" class="btn btn-neon btn-neon-blue">
+                        <span>Get Early Access</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">10K+</div>
+                        <div class="stat-label">Digital Assets</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5K+</div>
+                        <div class="stat-label">Collectors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99%</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 reveal-right">
+                <div class="hero-visual">
+                    <div class="hero-orb">
+                        <div class="orb-inner">⬡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED -->
+<section class="section-pad">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title text-gradient">Featured Assets</h2>
+            <div class="section-line"></div>
+            <p class="section-subtitle">Handpicked rare digital collectibles from the MetaSphere universe</p>
+        </div>
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 reveal">
+                    <div class="nft-card">
+                        <div class="nft-image-wrap">
+                            <div class="nft-placeholder">⬡</div>
+                            <span class="nft-tag">@item.Tag</span>
+                            <span class="rarity-badge rarity-@item.Rarity">@item.Rarity</span>
+                        </div>
+                        <div class="nft-body">
+                            <div class="nft-title">@item.Title</div>
+                            <p class="nft-desc">@item.Description</p>
+                            <a asp-controller="Explore" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-neon w-100">
+                                <span>Enquire Now</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-5 reveal">
+            <a asp-controller="Explore" asp-action="Index" class="btn btn-neon btn-neon-blue">
+                <span>View All Assets →</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- WHY METASPHERE -->
+<section class="section-pad">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">Why <span class="text-gradient">MetaSphere?</span></h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row g-4">
+            @foreach (var f in new[] {
+                ("⬡", "Verified Assets", "Every digital asset is authenticated and verified on the MetaSphere blockchain."),
+                ("◈", "Exclusive Access", "Members get early access to limited drops and virtual land parcels."),
+                ("◉", "Secure Platform", "Military-grade encryption protects your digital portfolio at all times.")
+            })
+            {
+                <div class="col-md-4 reveal">
+                    <div class="glass-card p-4 text-center h-100">
+                        <div style="font-size:3rem;margin-bottom:1rem;filter:drop-shadow(0 0 15px rgba(180,79,255,0.8))">@f.Item1</div>
+                        <h5 class="text-neon mb-2" style="font-family:'Orbitron',monospace">@f.Item2</h5>
+                        <p class="text-muted mb-0" style="font-size:.9rem">@f.Item3</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="section-pad">
+    <div class="container">
+        <div class="glass-card p-5 text-center reveal" style="background:linear-gradient(135deg,rgba(180,79,255,0.1),rgba(0,212,255,0.08))">
+            <h2 class="section-title text-gradient mb-3">Ready to Enter the Metaverse?</h2>
+            <p class="text-muted mb-4">Join thousands of collectors and explorers in the MetaSphere universe.</p>
+            <a asp-controller="Contact" asp-action="Index" class="btn btn-neon">
+                <span>Get Early Access Today</span>
+            </a>
+        </div>
+    </div>
+</section>

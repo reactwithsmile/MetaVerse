@@ -1,0 +1,63 @@
+@model IEnumerable<MetaSphere.Models.Item>
+@{ ViewData["Title"] = "Manage Items"; }
+
+<section class="section-pad">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4 reveal">
+            <div>
+                <h2 class="text-gradient mb-0" style="font-family:'Orbitron',monospace">Manage Items</h2>
+                <small class="text-muted">@Model.Count() total assets</small>
+            </div>
+            <div class="d-flex gap-2">
+                <a asp-action="Index" class="btn btn-neon btn-neon-blue" style="font-size:.65rem"><span>← Dashboard</span></a>
+                <a asp-action="CreateItem" class="btn btn-neon" style="font-size:.65rem"><span>+ Add Item</span></a>
+            </div>
+        </div>
+
+        <div class="glass-card reveal" style="overflow:hidden">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Tag</th>
+                        <th>Rarity</th>
+                        <th>Featured</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><span class="text-neon" style="font-family:'Orbitron',monospace;font-size:.8rem">@item.Title</span></td>
+                            <td><span class="nft-tag position-static">@item.Tag</span></td>
+                            <td><span class="rarity-badge rarity-@item.Rarity position-static">@item.Rarity</span></td>
+                            <td>
+                                @if (item.IsFeatured)
+                                {
+                                    <span style="color:#00ff80">✓</span>
+                                }
+                                else
+                                {
+                                    <span style="color:#555">—</span>
+                                }
+                            </td>
+                            <td style="color:var(--text-muted);font-size:.8rem">@item.CreatedAt.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a asp-action="EditItem" asp-route-id="@item.Id" class="btn btn-neon btn-neon-blue" style="font-size:.6rem;padding:.3rem .8rem"><span>Edit</span></a>
+                                    <form asp-action="DeleteItem" method="post" onsubmit="return confirm('Delete this item?')">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-neon btn-neon-pink" style="font-size:.6rem;padding:.3rem .8rem"><span>Delete</span></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

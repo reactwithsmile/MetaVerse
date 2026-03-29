@@ -1,0 +1,30 @@
+@{ ViewData["Title"] = "Admin Panel"; }
+
+<section class="section-pad">
+    <div class="container">
+        <div class="section-header reveal">
+            <h1 class="section-title text-gradient">Admin Panel</h1>
+            <div class="section-line"></div>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4 reveal">
+                <a asp-action="Items" class="text-decoration-none">
+                    <div class="glass-card p-5 text-center">
+                        <div style="font-size:3rem;margin-bottom:1rem;color:var(--neon-purple)"><i class="fas fa-cubes"></i></div>
+                        <h4 class="text-neon" style="font-family:'Orbitron',monospace">Manage Items</h4>
+                        <p class="text-muted small mt-2">Add, edit, and delete digital assets</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 reveal">
+                <a asp-action="Leads" class="text-decoration-none">
+                    <div class="glass-card p-5 text-center">
+                        <div style="font-size:3rem;margin-bottom:1rem;color:var(--neon-blue)"><i class="fas fa-users"></i></div>
+                        <h4 class="text-neon-blue" style="font-family:'Orbitron',monospace">View Leads</h4>
+                        <p class="text-muted small mt-2">Review all submitted inquiries</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,50 @@
+@{ ViewData["Title"] = "Roadmap"; }
+
+<section class="section-pad">
+    <div class="container">
+        <div class="section-header reveal">
+            <h1 class="section-title text-gradient">Our Roadmap</h1>
+            <div class="section-line"></div>
+            <p class="section-subtitle">The MetaSphere vision — from genesis to the infinite metaverse</p>
+        </div>
+
+        <!-- Vision -->
+        <div class="glass-card p-5 mb-5 reveal text-center">
+            <div style="font-size:3rem;margin-bottom:1rem">◈</div>
+            <h3 class="text-neon mb-3" style="font-family:'Orbitron',monospace">Our Vision</h3>
+            <p class="text-muted" style="max-width:600px;margin:0 auto;font-size:1.05rem;line-height:1.8">
+                MetaSphere is building the most immersive digital ownership platform — where virtual assets,
+                land, and experiences converge into a seamless metaverse economy accessible to everyone.
+            </p>
+        </div>
+
+        <!-- Timeline -->
+        <div class="roadmap-timeline">
+            @{
+                var phases = new[]
+                {
+                    ("PHASE 01", "Genesis Launch", "Platform foundation, smart contract deployment, and initial NFT collection release.", "Q1 2024", "done"),
+                    ("PHASE 02", "Marketplace Alpha", "Full marketplace launch with search, filtering, and inquiry system for all digital assets.", "Q2 2024", "done"),
+                    ("PHASE 03", "Virtual Land Sale", "First virtual land parcels available. Build, customize, and monetize your digital space.", "Q3 2024", "active"),
+                    ("PHASE 04", "Avatar Ecosystem", "Launch of customizable avatars, wearables, and cross-platform identity system.", "Q4 2024", "upcoming"),
+                    ("PHASE 05", "MetaSphere World", "Full 3D metaverse environment with social spaces, events, and live experiences.", "Q1 2025", "upcoming"),
+                    ("PHASE 06", "DAO Governance", "Community-driven governance. Token holders shape the future of MetaSphere.", "Q2 2025", "upcoming"),
+                };
+            }
+            @foreach (var (phase, title, desc, date, status) in phases)
+            {
+                <div class="roadmap-item reveal">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-phase">@phase — @date</div>
+                        <div class="roadmap-title">@title</div>
+                        <p class="roadmap-desc">@desc</p>
+                        <span class="roadmap-status status-@status">
+                            @(status == "done" ? "✓ Completed" : status == "active" ? "⬡ In Progress" : "◌ Upcoming")
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

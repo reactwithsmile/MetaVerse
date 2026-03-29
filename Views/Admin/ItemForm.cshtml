@@ -1,0 +1,72 @@
+@model MetaSphere.ViewModels.ItemFormViewModel
+@{ 
+    ViewData["Title"] = Model.Id == 0 ? "Add Item" : "Edit Item";
+    var isEdit = Model.Id != 0;
+}
+
+<section class="section-pad">
+    <div class="container" style="max-width:700px">
+        <div class="d-flex align-items-center gap-3 mb-4 reveal">
+            <a asp-action="Items" class="btn btn-neon btn-neon-blue" style="font-size:.65rem"><span>← Back</span></a>
+            <h2 class="text-gradient mb-0" style="font-family:'Orbitron',monospace">
+                @(isEdit ? "Edit Item" : "Add New Item")
+            </h2>
+        </div>
+
+        <div class="glass-card p-5 reveal">
+            <form asp-action="@(isEdit ? "EditItem" : "CreateItem")" method="post" class="ms-form">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label asp-for="Title">TITLE</label>
+                        <input asp-for="Title" class="form-control" placeholder="Asset title" />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Description">DESCRIPTION</label>
+                        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe this digital asset..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Tag">TAG</label>
+                        <select asp-for="Tag" class="form-select">
+                            @foreach (var t in new[] { "Digital Asset", "Virtual Land", "Avatar", "Utility", "Wearable" })
+                            {
+                                <option value="@t">@t</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Rarity">RARITY</label>
+                        <select asp-for="Rarity" class="form-select">
+                            @foreach (var r in new[] { "Common", "Rare", "Epic", "Legendary", "Limited" })
+                            {
+                                <option value="@r">@r</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="ImageUrl">IMAGE URL</label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="/images/nft.png" />
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input asp-for="IsFeatured" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsFeatured" class="form-check-label" style="color:var(--text-muted)">Feature on homepage</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button type="submit" class="btn btn-neon w-100">
+                            <span>@(isEdit ? "⬡ Update Item" : "⬡ Create Item")</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

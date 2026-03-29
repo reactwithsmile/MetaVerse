@@ -1,0 +1,79 @@
+@model MetaSphere.ViewModels.LeadViewModel
+@{ ViewData["Title"] = "Contact"; }
+
+<section class="section-pad">
+    <div class="container">
+        <div class="section-header reveal">
+            <h1 class="section-title text-gradient">Get In Touch</h1>
+            <div class="section-line"></div>
+            <p class="section-subtitle">Have questions? We'd love to hear from you.</p>
+        </div>
+
+        <div class="row g-5 justify-content-center">
+            <!-- Info -->
+            <div class="col-lg-4 reveal-left">
+                <a href="https://discord.gg/metasphere" target="_blank" class="text-decoration-none d-block mb-4">
+                    <div class="glass-card p-4 contact-info-card">
+                        <div style="font-size:2rem;margin-bottom:.75rem">◈</div>
+                        <h5 class="text-neon mb-2" style="font-family:'Orbitron',monospace;font-size:.85rem">JOIN THE COMMUNITY</h5>
+                        <p class="text-muted small mb-2">Connect with thousands of MetaSphere explorers and collectors.</p>
+                        <span class="contact-card-link"><i class="fab fa-discord me-1"></i>Join Discord →</span>
+                    </div>
+                </a>
+                <a href="#contact-form" class="text-decoration-none d-block mb-4">
+                    <div class="glass-card p-4 contact-info-card">
+                        <div style="font-size:2rem;margin-bottom:.75rem">⬡</div>
+                        <h5 class="text-neon mb-2" style="font-family:'Orbitron',monospace;font-size:.85rem">EARLY ACCESS</h5>
+                        <p class="text-muted small mb-2">Submit your inquiry to get priority access to new drops and virtual land.</p>
+                        <span class="contact-card-link"><i class="fas fa-arrow-down me-1"></i>Fill the form →</span>
+                    </div>
+                </a>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="col-lg-6 reveal-right" id="contact-form">
+                <div class="glass-card p-5">
+                    <form asp-action="Index" method="post" class="ms-form">
+                        @Html.AntiForgeryToken()
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Name">NAME</label>
+                                <input asp-for="Name" class="form-control" placeholder="Your name" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email">EMAIL</label>
+                                <input asp-for="Email" class="form-control" placeholder="your@email.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Phone">PHONE (OPTIONAL)</label>
+                                <input asp-for="Phone" class="form-control" placeholder="+1 234 567 8900" />
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Message">MESSAGE</label>
+                                <textarea asp-for="Message" class="form-control" rows="5" placeholder="How can we help you?"></textarea>
+                                <span asp-validation-for="Message" class="text-danger small"></span>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-neon w-100">
+                                    <span>⬡ Send Message</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
