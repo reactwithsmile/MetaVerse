@@ -23,6 +23,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// In containerized environments the reverse proxy (Railway) will handle TLS.
+// Kestrel should listen on the PORT environment variable (Railway provides it).
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    // Listen on all network interfaces for the provided port
+    app.Urls.Add($"http://0.0.0.0:{port}");
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
