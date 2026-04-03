@@ -61,3 +61,23 @@ document.querySelectorAll('.ms-nav-link').forEach(link => {
     resize(); init(); draw();
     window.addEventListener('resize', () => { resize(); init(); });
 })();
+
+// Page loader: hide after DOM and resources load
+(function () {
+    function hideLoader() {
+        const loader = document.getElementById('msLoader');
+        if (!loader) return;
+        loader.classList.add('ms-loader-hidden');
+        document.body.classList.remove('ms-loading');
+    }
+
+    // If the page is already loaded, hide immediately
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else {
+        window.addEventListener('load', () => {
+            // small timeout for smooth fade
+            setTimeout(hideLoader, 240);
+        });
+    }
+})();

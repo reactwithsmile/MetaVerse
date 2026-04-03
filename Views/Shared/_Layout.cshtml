@@ -11,6 +11,37 @@
     <link rel="stylesheet" href="~/css/metasphere.css" asp-append-version="true" />
 
     <style>
+        /* Page loader styles */
+        body.ms-loading { overflow: hidden; }
+        #msLoader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(6,6,10,0.96), rgba(12,11,20,0.96));
+            z-index: 2000;
+            transition: opacity 360ms ease, visibility 360ms ease;
+        }
+        #msLoader.ms-loader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .ms-loader-box {
+            text-align: center;
+            color: #e6e6f0;
+            font-family: Rajdhani, sans-serif;
+        }
+        .ms-loader-spinner {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 6px solid rgba(255,255,255,0.06);
+            border-top-color: #8b5cf6;
+            animation: ms-spin 1s linear infinite;
+            margin: 0 auto 14px;
+        }
+        @@keyframes ms-spin { to { transform: rotate(360deg); } }
+        .ms-loader-text { font-size: 14px; color: #cfe8ff; }
+
+        /* Chatbot styles (small, self-contained) */
         #msChatbotWrapper {
             position: fixed;
             right: 20px;
@@ -96,7 +127,15 @@
         .ms-chatbot-close { background: transparent; border: none; color: #e6e6f0; cursor: pointer; }
     </style>
 </head>
-<body>
+<body class="ms-loading">
+    <!-- Page loader -->
+    <div id="msLoader" role="status" aria-hidden="false">
+        <div class="ms-loader-box">
+            <div class="ms-loader-spinner" aria-hidden="true"></div>
+            <div class="ms-loader-text">Loading MetaVerse…</div>
+        </div>
+    </div>
+
     <!-- Animated background particles -->
     <div class="bg-particles" id="particles"></div>
 
