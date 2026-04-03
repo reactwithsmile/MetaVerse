@@ -4,6 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var dialogflowJson = Environment.GetEnvironmentVariable("DIALOGFLOW_CREDENTIALS_JSON");
+if (!string.IsNullOrWhiteSpace(dialogflowJson))
+{
+    try
+    {
+        var credPath = Path.Combine(Path.GetTempPath(), "dialogflow-credentials.json");
+        File.WriteAllText(credPath, dialogflowJson);
+        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credPath);
+    }
+    catch
+    {
+        // ignore; ChatController will validate configuration and return a clear error
+    }
+}
+
 builder.Services.AddControllersWithViews();
 
 // Resolve app.db path relative to the app's base directory
